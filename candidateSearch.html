@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Candidate Search</title>
+  <style>
+    /* CSS styles */
+    body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    /* background-image: linear-gradient(to right, #b8cbb8 0%, #b8cbb8 0%, #b465da 0%, #cf6cc9 33%, #ee609c 66%, #ee609c 100%); */
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    transition: 0.5s;
+    animation: change 10s ease-in-out infinite;
+     
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: #fff;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      border-radius: 5px;
+      position: relative;
+    width: 800px;
+    height: 500px;
+    margin: 20px;
+    }
+
+    h1 {
+      color: #333;
+      font-size: 28px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      color: #333;
+      font-weight: bold;
+    }
+
+    input[type="text"],
+    select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      margin-bottom: 15px;
+    }
+
+    button {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      background-color: #4285F4;
+      color: #fff;
+      border: none;
+      border-radius: 3px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #3367D6;
+    }
+
+    .candidates-container {
+      margin-top: 30px;
+    }
+
+    .candidate {
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 10px;
+      margin-bottom: 10px;
+      background-color: #f9f9f9;
+      transition: background-color 0.3s;
+    }
+
+    .candidate:hover {
+      background-color: #eef2fa;
+    }
+
+    .candidate h3 {
+      color: #333;
+      font-size: 18px;
+      margin: 0;
+    }
+
+    .candidate p {
+      color: #666;
+      font-size: 16px;
+      margin: 5px 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Candidate Search</h1>
+    <form id="search-form">
+      <label for="location">Location</label>
+      <input type="text" id="location" placeholder="Enter a location">
+
+      <label for="job-role">Job Role</label>
+      <select id="job-role">
+        <option value="all">All</option>
+        <option value="engineer">Engineer</option>
+        <option value="designer">Designer</option>
+        <option value="manager">Manager</option>
+      </select>
+
+      <button type="submit">Search Candidates</button>
+    </form>
+
+    <div class="candidates-container" id="candidates-container">
+      <h2>Candidates:</h2>
+      <div id="candidates-list"></div>
+    </div>
+  </div>
+
+  <script>
+    // JavaScript code
+    const searchForm = document.querySelector('#search-form');
+    const locationInput = document.querySelector('#location');
+    const jobRoleSelect = document.querySelector('#job-role');
+    const candidatesList = document.querySelector('#candidates-list');
+
+    searchForm.addEventListener('submit', function(event) {
+      event.preventDefault();
+      const location = locationInput.value;
+      const jobRole = jobRoleSelect.value;
+
+      // Perform candidate search based on location and job role
+      // Replace the below code with your actual implementation or API calls
+
+      // Dummy candidates data for demonstration
+      const candidates = [
+        { name: 'John Doe', location: 'New York', jobRole: 'Engineer' },
+        { name: 'Jane Smith', location: 'London', jobRole: 'Designer' },
+        { name: 'Mike Johnson', location: 'San Francisco', jobRole: 'Engineer' },
+        { name: 'Emily Davis', location: 'Sydney', jobRole: 'Manager' },
+      ];
+
+      // Clear existing candidate list
+      candidatesList.innerHTML = '';
+
+      // Display matched candidates with colorful and dynamic effect
+      candidates.forEach(candidate => {
+        if (
+          (location === '' || candidate.location.toLowerCase().includes(location.toLowerCase())) &&
+          (jobRole === 'all' || candidate.jobRole.toLowerCase() === jobRole.toLowerCase())
+        ) {
+          const candidateElement = document.createElement('div');
+          candidateElement.classList.add('candidate');
+          candidateElement.innerHTML = `
+            <h3>${candidate.name}</h3>
+            <p>Location: ${candidate.location}</p>
+            <p>Job Role: ${candidate.jobRole}</p>
+          `;
+
+          // Add dynamic effect on candidate hover
+          candidateElement.addEventListener('mouseenter', function() {
+            this.style.backgroundColor = '#eef2fa';
+          });
+
+          candidateElement.addEventListener('mouseleave', function() {
+            this.style.backgroundColor = '#f9f9f9';
+          });
+
+          candidatesList.appendChild(candidateElement);
+        }
+      });
+    });
+  </script>
+</body>
+</html>
